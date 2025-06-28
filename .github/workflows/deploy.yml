@@ -1,0 +1,156 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch: # Permite ejecución manual
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: Run Tests
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        
+    - name: Run tests
+      run: |
+        python manage.py test --settings=config.settings.local
+        
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    name: Deploy to Server
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Deploy to Production Server
+      uses: appleboy/ssh-action@v0.1.7
+      with:
+        host: ${{ secrets.SERVER_HOST }}
+        username: ${{ secrets.SERVER_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port: ${{ secrets.SSH_PORT }}
+        timeout: 300s
+        script: |
+          echo "Starting deployment process..."
+          
+          # Navegar al directorio de la aplicación
+          cd ${{ secrets.SERVER_PATH }}
+          
+          # Crear backup de la versión actual
+          echo "Creating backup..."
+          docker tag ${{ secrets.DOCKER_IMAGE_NAME }}:latest ${{ secrets.DOCKER_BACKUP_PREFIX }}:$(date +%Y%m%d-%H%M%S) || true
+          
+          # Actualizar código
+          echo "Pulling latest changes..."
+          git fetch origin
+          git reset --hard origin/main
+          
+          # Crear archivo de log para deployment
+          echo "Logging deployment..."
+          echo "Deployment started at $(date)" >> deployment.log
+          echo "Commit: $(git rev-parse HEAD)" >> deployment.log
+          
+          # Build y deploy
+          echo "Building application..."
+          ./scripts/docker-prod.sh down || true
+          ./scripts/docker-prod.sh build
+          
+          echo "Starting services..."
+          ./scripts/docker-prod.sh up
+          
+          # Esperar a que los servicios estén listos
+          echo "Waiting for services to be ready..."
+          sleep 30
+          
+          # Health check
+          echo "Performing health check..."
+          for i in {1..5}; do
+            if curl -f http://localhost${{ secrets.HEALTH_CHECK_PATH }} >/dev/null 2>&1; then
+              echo "Health check passed!"
+              echo "Deployment completed successfully at $(date)" >> deployment.log
+              break
+            else
+              echo "Health check failed, attempt $i/5"
+              if [ $i -eq 5 ]; then
+                echo "Health check failed after 5 attempts, rolling back..."
+                
+                # Rollback
+                docker-compose -f docker-compose.prod.yml down
+                docker tag ${{ secrets.DOCKER_BACKUP_PREFIX }}:$(date +%Y%m%d-%H%M%S) ${{ secrets.DOCKER_IMAGE_NAME }}:latest
+                docker-compose -f docker-compose.prod.yml up -d
+                
+                echo "Rollback completed"
+                echo "Deployment failed and rolled back at $(date)" >> deployment.log
+                exit 1
+              fi
+              sleep 10
+            fi
+          done
+          
+          # Cleanup old backups (keep last 5)
+          echo "Cleaning old backups..."
+          docker images ${{ secrets.DOCKER_BACKUP_PREFIX }} --format "table {{.Tag}}" | tail -n +2 | sort -r | tail -n +6 | xargs -r docker rmi ${{ secrets.DOCKER_BACKUP_PREFIX }}: || true
+          
+          echo "Deployment completed successfully!"
+          
+    - name: Notify on Success
+      if: success()
+      uses: 8398a7/action-slack@v3
+      with:
+        status: success
+        text: "Deployment to production successful!"
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        
+    - name: Notify on Failure
+      if: failure()
+      uses: 8398a7/action-slack@v3
+      with:
+        status: failure
+        text: "Deployment to production failed!"
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+  post-deploy:
+    needs: deploy
+    runs-on: ubuntu-latest
+    name: Post-Deploy Checks
+    if: success()
+    
+    steps:
+    - name: Extended Health Check
+      run: |
+        echo "Running extended health checks..."
+        
+        # Check main page
+        if curl -f ${{ secrets.PRODUCTION_DOMAIN }} >/dev/null 2>&1; then
+          echo "Main page accessible"
+        else
+          echo "Main page not accessible"
+          exit 1
+        fi
+        
+        # Check admin
+        if curl -f ${{ secrets.PRODUCTION_DOMAIN }}/admin/ >/dev/null 2>&1; then
+          echo "Admin panel accessible"
+        else
+          echo "Admin panel not accessible"
+          exit 1
+        fi
+        
+        echo "All post-deploy checks passed!" 
