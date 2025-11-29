@@ -1,35 +1,52 @@
-<header class="bg-white shadow-sm border-b">
+<header class="bg-white dark:bg-gray-800 shadow-sm border-b dark:border-gray-700 transition-colors duration-200">
     <nav class="container mx-auto px-4 py-4">
         <div class="flex justify-between items-center">
             <!-- Logo -->
             <div class="flex items-center space-x-2">
                 <span class="text-2xl">🐜</span>
-                <a href="{% url 'expenses:dashboard' %}" class="text-xl font-bold text-gray-800 hover:text-gray-600">
+                <a href="{% url 'expenses:dashboard' %}" class="text-xl font-bold text-gray-800 dark:text-gray-100 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
                     Hormigah
                 </a>
             </div>
-            
+
             {% if user.is_authenticated %}
                 <!-- Desktop Navigation -->
                 <div class="hidden md:flex space-x-6">
-                    <a href="{% url 'expenses:dashboard' %}" class="text-gray-600 hover:text-gray-800">Dashboard</a>
-                    <button hx-get="{% url 'expenses:add_expense' %}" 
-                            hx-target="#modal-container" 
+                    <a href="{% url 'expenses:dashboard' %}" class="text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100 transition-colors">Dashboard</a>
+                    <button hx-get="{% url 'expenses:add_expense' %}"
+                            hx-target="#modal-container"
                             hx-indicator="#modal-loading"
-                            class="text-gray-600 hover:text-gray-800 cursor-pointer">
+                            class="text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100 cursor-pointer transition-colors">
                         Agregar Gasto
                     </button>
-                    <a href="{% url 'expenses:expense_list' %}" class="text-gray-600 hover:text-gray-800">Todos los Gastos</a>
+                    <a href="{% url 'expenses:expense_list' %}" class="text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100 transition-colors">Todos los Gastos</a>
                 </div>
             {% endif %}
-            
-            <!-- Mobile menu button + User Menu -->
-            <div class="flex items-center space-x-4">
+
+            <!-- Theme Toggle + Mobile menu button + User Menu -->
+            <div class="flex items-center space-x-3">
+                <!-- Theme Toggle Button -->
+                <button
+                    onclick="window.themeManager.toggle()"
+                    class="p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none"
+                    aria-label="Toggle dark mode"
+                    title="Cambiar tema"
+                >
+                    <!-- Sol (visible en dark mode) -->
+                    <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                    </svg>
+                    <!-- Luna (visible en light mode) -->
+                    <svg class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                    </svg>
+                </button>
+
                 {% if user.is_authenticated %}
                     <!-- Mobile menu button -->
-                    <button 
-                        onclick="toggleMobileMenu()" 
-                        class="md:hidden text-gray-600 hover:text-gray-800 focus:outline-none"
+                    <button
+                        onclick="toggleMobileMenu()"
+                        class="md:hidden text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100 focus:outline-none transition-colors"
                     >
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
@@ -38,9 +55,9 @@
 
                     <!-- User Dropdown -->
                     <div class="relative">
-                        <button 
-                            onclick="toggleUserMenu()" 
-                            class="flex items-center space-x-2 text-sm text-gray-600 hover:text-gray-800 focus:outline-none"
+                        <button
+                            onclick="toggleUserMenu()"
+                            class="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100 focus:outline-none transition-colors"
                         >
                             <span class="text-lg">👤</span>
                             <span class="hidden sm:inline">{{ user.username }}</span>
@@ -48,53 +65,53 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                             </svg>
                         </button>
-                        
+
                         <!-- Dropdown Menu -->
-                        <div 
-                            id="userDropdown" 
-                            class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 hidden"
+                        <div
+                            id="userDropdown"
+                            class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-700 rounded-md shadow-lg py-1 z-50 hidden border dark:border-gray-600"
                         >
-                            <a href="{% url 'users:profile' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                            <a href="{% url 'users:profile' %}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
                                 📝 Mi Perfil
                             </a>
                             {% if user.is_staff %}
-                                <hr class="border-gray-200">
-                                <a href="/admin/" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                <hr class="border-gray-200 dark:border-gray-600">
+                                <a href="/admin/" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
                                     ⚙️ Panel Admin
                                 </a>
                             {% endif %}
-                            <hr class="border-gray-200">
+                            <hr class="border-gray-200 dark:border-gray-600">
                             <!-- Formulario de logout (POST request) -->
                             <form method="post" action="{% url 'logout' %}" class="w-full">
                                 {% csrf_token %}
-                                <button type="submit" class="w-full text-left block px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors duration-200">
+                                <button type="submit" class="w-full text-left block px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-gray-600 transition-colors duration-200">
                                     🚪 Cerrar Sesión
                                 </button>
                             </form>
                         </div>
                     </div>
                 {% else %}
-                    <a href="{% url 'login' %}" class="text-sm text-blue-600 hover:text-blue-800">Iniciar Sesión</a>
+                    <a href="{% url 'login' %}" class="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors">Iniciar Sesión</a>
                 {% endif %}
             </div>
         </div>
 
         {% if user.is_authenticated %}
             <!-- Mobile Navigation Menu -->
-            <div id="mobileMenu" class="md:hidden mt-4 pb-4 border-t border-gray-200 hidden">
+            <div id="mobileMenu" class="md:hidden mt-4 pb-4 border-t border-gray-200 dark:border-gray-700 hidden">
                 <div class="pt-4 space-y-2">
-                    <a href="{% url 'expenses:dashboard' %}" 
-                       class="block px-4 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-50 rounded-md">
+                    <a href="{% url 'expenses:dashboard' %}"
+                       class="block px-4 py-2 text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-md transition-colors">
                         📊 Dashboard
                     </a>
-                    <button hx-get="{% url 'expenses:add_expense' %}" 
-                            hx-target="#modal-container" 
+                    <button hx-get="{% url 'expenses:add_expense' %}"
+                            hx-target="#modal-container"
                             hx-indicator="#modal-loading"
-                            class="block w-full text-left px-4 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-50 rounded-md">
+                            class="block w-full text-left px-4 py-2 text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-md transition-colors">
                         ➕ Agregar Gasto
                     </button>
-                    <a href="{% url 'expenses:expense_list' %}" 
-                       class="block px-4 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-50 rounded-md">
+                    <a href="{% url 'expenses:expense_list' %}"
+                       class="block px-4 py-2 text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-md transition-colors">
                         📋 Todos los Gastos
                     </a>
                 </div>
