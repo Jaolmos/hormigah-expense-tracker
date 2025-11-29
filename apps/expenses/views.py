@@ -1,8 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.http import HttpResponse
 from .models import Expense, Budget
 from .forms import ExpenseForm, BudgetForm
+import csv
+from datetime import datetime
 # Imports específicos de utils modularizados
 from .utils.util_dashboard import get_dashboard_context
 from .utils.util_expense_list import get_expense_list_context
@@ -220,6 +223,45 @@ def manage_budget(request):
         'form': form,
         'budget': budget
     })
+
+
+@login_required
+def export_expenses_csv(request):
+    """
+    Exporta los gastos del usuario a formato CSV
+    Respeta los filtros activos en la lista de gastos
+    """
+    # Reutilizar la lógica de filtros de get_expense_list_context
+    context = get_expense_list_context(request.user, request.GET)
+    expenses = context['expenses']
+
+    # Crear la respuesta HTTP con tipo CSV
+    response = HttpResponse(content_type='text/csv; charset=utf-8')
+
+    # Nombre del archivo con fecha actual
+    filename = f'gastos_{datetime.now().strftime("%Y-%m-%d")}.csv'
+    response['Content-Disposition'] = f'attachment; filename="{filename}"'
+
+    # Agregar BOM para que Excel reconozca UTF-8
+    response.write('\ufeff')
+
+    # Crear el writer CSV
+    writer = csv.writer(response, delimiter=';')
+
+    # Escribir cabecera
+    writer.writerow(['Fecha', 'Categoría', 'Monto (€)', 'Descripción', 'Ubicación'])
+
+    # Escribir datos de gastos
+    for expense in expenses:
+        writer.writerow([
+            expense.date.strftime('%d/%m/%Y'),  # Formato español
+            expense.category.name,
+            str(expense.amount).replace('.', ','),  # Separador decimal europeo
+            expense.description or '',
+            expense.location or ''
+        ])
+
+    return response
 
 
 
