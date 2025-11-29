@@ -103,6 +103,9 @@ logs/
 # Cursor
 .cursor/
 
+# Claude Code
+.claude/
+
 # PyCharm
 .idea/
 *.iws
