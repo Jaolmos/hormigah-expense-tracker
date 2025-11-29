@@ -1,6 +1,6 @@
 <!-- Mensaje de éxito si existe -->
 {% if delete_success %}
-<div class="bg-green-50 border-l-4 border-green-400 p-4 mb-4 rounded-lg transition-all duration-300"
+<div class="bg-green-50 dark:bg-green-900/20 border-l-4 border-green-400 p-4 mb-4 rounded-lg transition-all duration-300"
      hx-get="{% url 'expenses:close_modal' %}"
      hx-target="this"
      hx-swap="outerHTML"
@@ -13,7 +13,7 @@
                 </svg>
             </div>
             <div class="ml-3">
-                <p class="text-sm text-green-700">
+                <p class="text-sm text-green-700 dark:text-green-300">
                     <strong>🗑️ {{ delete_message }}</strong><br>
                     €{{ expense_data.amount }} - {{ expense_data.category_name }}
                     {% if expense_data.description %}
@@ -37,7 +37,7 @@
 {% endif %}
 
 {% if edit_success %}
-<div class="bg-blue-50 border-l-4 border-blue-400 p-4 mb-4 rounded-lg transition-all duration-300"
+<div class="bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-400 p-4 mb-4 rounded-lg transition-all duration-300"
      hx-get="{% url 'expenses:close_modal' %}"
      hx-target="this"
      hx-swap="outerHTML"
@@ -50,7 +50,7 @@
                 </svg>
             </div>
             <div class="ml-3">
-                <p class="text-sm text-blue-700">
+                <p class="text-sm text-blue-700 dark:text-blue-300">
                     <strong>✏️ {{ edit_message }}</strong><br>
                     €{{ expense_data.amount }} - {{ expense_data.category_name }}
                     {% if expense_data.description %}
@@ -61,7 +61,7 @@
         </div>
         <!-- Botón para cerrar manualmente -->
         <button type="button" 
-                class="text-blue-400 hover:text-blue-600 ml-4"
+                class="text-blue-400 hover:text-blue-600 dark:text-blue-400 ml-4"
                 hx-get="{% url 'expenses:close_modal' %}"
                 hx-target="closest div"
                 hx-swap="outerHTML">
@@ -75,17 +75,17 @@
 
 <!-- Información del Período Activo -->
 {% if active_period_info %}
-<div class="bg-indigo-50 border border-indigo-200 rounded-lg p-4 mb-6">
+<div class="bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-200 dark:border-indigo-800 rounded-lg p-4 mb-6">
     <div class="flex items-center space-x-3">
-        <div class="text-indigo-600">
+        <div class="text-indigo-600 dark:text-indigo-400">
             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
             </svg>
         </div>
         <div>
-            <h3 class="text-lg font-semibold text-indigo-900">{{ active_period_info }}</h3>
+            <h3 class="text-lg font-semibold text-indigo-900 dark:text-indigo-100">{{ active_period_info }}</h3>
             {% if period_dates %}
-            <p class="text-sm text-indigo-700">
+            <p class="text-sm text-indigo-700 dark:text-indigo-300">
                 📅 Del {{ period_dates.0|date:"d/m/Y" }} al {{ period_dates.1|date:"d/m/Y" }}
             </p>
             {% endif %}
@@ -96,13 +96,13 @@
 
 <!-- Estadísticas de Filtros -->
 {% if has_filters %}
-<div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+<div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 mb-6">
     <div class="flex items-center justify-between">
         <div class="flex items-center">
-            <div class="text-blue-600 mr-3">📊</div>
+            <div class="text-blue-600 dark:text-blue-400 mr-3">📊</div>
             <div>
-                <p class="text-blue-800 font-medium">Resultados Filtrados</p>
-                <p class="text-blue-600 text-sm">
+                <p class="text-blue-800 dark:text-blue-200 font-medium">Resultados Filtrados</p>
+                <p class="text-blue-600 dark:text-blue-400 text-sm">
                     Mostrando {{ count_filtered }} gasto{{ count_filtered|pluralize }} 
                     por un total de €{{ total_filtered|floatformat:2 }}
                 </p>
@@ -113,62 +113,62 @@
 {% endif %}
 
 <!-- Lista de gastos -->
-<div class="bg-white rounded-lg shadow">
+<div class="bg-white dark:bg-gray-800 rounded-lg shadow">
     {% if expenses %}
     
     <!-- Vista Desktop: Tabla -->
     <div class="hidden md:block overflow-hidden">
         <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
+            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                <thead class="bg-gray-50 dark:bg-gray-900">
                     <tr>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                             Fecha
                         </th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                             Categoría
                         </th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                             Descripción
                         </th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                             Lugar
                         </th>
-                        <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                             Cantidad
                         </th>
-                        <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                             Acciones
                         </th>
                     </tr>
                 </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
+                <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
                     {% for expense in expenses %}
-                    <tr class="hover:bg-gray-50">
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    <tr class="hover:bg-gray-50 dark:bg-gray-900 dark:hover:bg-gray-700">
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
                             {{ expense.date|date:"d/m/Y" }}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
                             <div class="flex items-center">
                                 <div class="w-3 h-3 rounded-full mr-2" style="background-color: {{ expense.category.color }}"></div>
-                                <span class="text-sm text-gray-900">{{ expense.category.name }}</span>
+                                <span class="text-sm text-gray-900 dark:text-gray-100">{{ expense.category.name }}</span>
                             </div>
                         </td>
-                        <td class="px-6 py-4 text-sm text-gray-900 max-w-xs truncate">
+                        <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100 max-w-xs truncate">
                             {% if expense.description %}
                                 {{ expense.description }}
                             {% else %}
-                                <span class="text-gray-400 italic">Sin descripción</span>
+                                <span class="text-gray-400 dark:text-gray-500 italic">Sin descripción</span>
                             {% endif %}
                         </td>
-                        <td class="px-6 py-4 text-sm text-gray-500 max-w-xs truncate">
+                        <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400 max-w-xs truncate">
                             {% if expense.location %}
                                 {{ expense.location }}
                             {% else %}
-                                <span class="text-gray-400">-</span>
+                                <span class="text-gray-400 dark:text-gray-500">-</span>
                             {% endif %}
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-bold text-gray-900">
+                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-bold text-gray-900 dark:text-gray-100">
                             €{{ expense.amount|floatformat:2 }}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-center text-sm">
@@ -177,7 +177,7 @@
                                 <button hx-get="{% url 'expenses:edit_expense' expense.id %}" 
                                         hx-target="#modal-container"
                                         hx-indicator="#edit-loading"
-                                        class="text-blue-600 hover:text-blue-900 hover:bg-blue-50 p-2 rounded-lg transition-colors"
+                                        class="text-blue-600 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-100 hover:bg-blue-50 dark:bg-blue-900/20 dark:hover:bg-blue-900/20 p-2 rounded-lg transition-colors"
                                         title="Editar gasto">
                                     ✏️
                                 </button>
@@ -187,7 +187,7 @@
                                         hx-target="#expense-results"
                                         hx-confirm="¿Estás seguro de que quieres eliminar este gasto de €{{ expense.amount }}?"
                                         hx-indicator="#delete-loading"
-                                        class="text-red-600 hover:text-red-900 hover:bg-red-50 p-2 rounded-lg transition-colors"
+                                        class="text-red-600 hover:text-red-900 dark:hover:text-red-100 hover:bg-red-50 dark:bg-red-900/20 dark:hover:bg-red-900/20 p-2 rounded-lg transition-colors"
                                         title="Eliminar gasto">
                                     🗑️
                                 </button>
@@ -201,18 +201,18 @@
     </div>
 
     <!-- Vista Mobile: Tarjetas -->
-    <div class="md:hidden divide-y divide-gray-200">
+    <div class="md:hidden divide-y divide-gray-200 dark:divide-gray-700">
         {% for expense in expenses %}
-        <div class="p-4 hover:bg-gray-50 transition-colors">
+        <div class="p-4 hover:bg-gray-50 dark:bg-gray-900 dark:hover:bg-gray-700 transition-colors">
             <!-- Header de la tarjeta -->
             <div class="flex justify-between items-start mb-3">
                 <div class="flex items-center space-x-2">
                     <div class="w-4 h-4 rounded-full" style="background-color: {{ expense.category.color }}"></div>
-                    <span class="font-medium text-gray-900">{{ expense.category.name }}</span>
+                    <span class="font-medium text-gray-900 dark:text-gray-100">{{ expense.category.name }}</span>
                 </div>
                 <div class="text-right">
-                    <div class="text-lg font-bold text-gray-900">€{{ expense.amount|floatformat:2 }}</div>
-                    <div class="text-xs text-gray-500">{{ expense.date|date:"d/m/Y" }}</div>
+                    <div class="text-lg font-bold text-gray-900 dark:text-gray-100">€{{ expense.amount|floatformat:2 }}</div>
+                    <div class="text-xs text-gray-500 dark:text-gray-400">{{ expense.date|date:"d/m/Y" }}</div>
                 </div>
             </div>
             
@@ -220,20 +220,20 @@
             <div class="space-y-2 mb-3">
                 {% if expense.description %}
                 <div class="flex items-start space-x-2">
-                    <svg class="w-4 h-4 text-gray-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-4 h-4 text-gray-400 dark:text-gray-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path>
                     </svg>
-                    <span class="text-sm text-gray-700">{{ expense.description }}</span>
+                    <span class="text-sm text-gray-700 dark:text-gray-300">{{ expense.description }}</span>
                 </div>
                 {% endif %}
                 
                 {% if expense.location %}
                 <div class="flex items-start space-x-2">
-                    <svg class="w-4 h-4 text-gray-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-4 h-4 text-gray-400 dark:text-gray-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                     </svg>
-                    <span class="text-sm text-gray-500">{{ expense.location }}</span>
+                    <span class="text-sm text-gray-500 dark:text-gray-400">{{ expense.location }}</span>
                 </div>
                 {% endif %}
             </div>
@@ -244,7 +244,7 @@
                 <button hx-get="{% url 'expenses:edit_expense' expense.id %}" 
                         hx-target="#modal-container"
                         hx-indicator="#edit-loading"
-                        class="flex items-center space-x-1 text-blue-600 hover:text-blue-900 hover:bg-blue-50 px-3 py-1.5 rounded-lg transition-colors"
+                        class="flex items-center space-x-1 text-blue-600 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-100 hover:bg-blue-50 dark:bg-blue-900/20 dark:hover:bg-blue-900/20 px-3 py-1.5 rounded-lg transition-colors"
                         title="Editar gasto">
                     <span>✏️</span>
                     <span class="text-xs">Editar</span>
@@ -255,7 +255,7 @@
                         hx-target="#expense-results"
                         hx-confirm="¿Estás seguro de que quieres eliminar este gasto de €{{ expense.amount }}?"
                         hx-indicator="#delete-loading"
-                        class="flex items-center space-x-1 text-red-600 hover:text-red-900 hover:bg-red-50 px-3 py-1.5 rounded-lg transition-colors"
+                        class="flex items-center space-x-1 text-red-600 hover:text-red-900 dark:hover:text-red-100 hover:bg-red-50 dark:bg-red-900/20 dark:hover:bg-red-900/20 px-3 py-1.5 rounded-lg transition-colors"
                         title="Eliminar gasto">
                     <span>🗑️</span>
                     <span class="text-xs">Eliminar</span>
@@ -266,9 +266,9 @@
     </div>
     
     <!-- Total de gastos -->
-    <div class="bg-gray-50 px-4 md:px-6 py-3 border-t border-gray-200">
+    <div class="bg-gray-50 dark:bg-gray-900 px-4 md:px-6 py-3 border-t border-gray-200 dark:border-gray-700">
         <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center space-y-2 sm:space-y-0">
-            <span class="text-sm text-gray-600">
+            <span class="text-sm text-gray-600 dark:text-gray-400">
                 {% if has_filters %}
                     Mostrando {{ count_filtered }} de {{ expenses|length }} gasto{{ expenses|length|pluralize }}
                 {% else %}
@@ -276,8 +276,8 @@
                 {% endif %}
             </span>
             <div class="flex items-center justify-between sm:justify-end">
-                <span class="text-sm text-gray-500 sm:hidden mr-2">Total:</span>
-                <span class="text-lg font-bold text-gray-900">
+                <span class="text-sm text-gray-500 dark:text-gray-400 sm:hidden mr-2">Total:</span>
+                <span class="text-lg font-bold text-gray-900 dark:text-gray-100">
                     €{{ total_filtered|floatformat:2 }}
                 </span>
             </div>
@@ -289,8 +289,8 @@
     <div class="text-center py-12">
         {% if has_filters %}
             <div class="text-6xl mb-4">🔍</div>
-            <h3 class="text-lg font-medium text-gray-900 mb-2">No se encontraron gastos</h3>
-            <p class="text-gray-500 mb-6">
+            <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">No se encontraron gastos</h3>
+            <p class="text-gray-500 dark:text-gray-400 mb-6">
                 Los filtros aplicados no devolvieron ningún resultado.<br>
                 Intenta ajustar los criterios de búsqueda.
             </p>
@@ -302,8 +302,8 @@
             </button>
         {% else %}
             <div class="text-6xl mb-4">📋</div>
-            <h3 class="text-lg font-medium text-gray-900 mb-2">No tienes gastos registrados</h3>
-            <p class="text-gray-500 mb-6">Comienza registrando tu primer gasto hormiga</p>
+            <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">No tienes gastos registrados</h3>
+            <p class="text-gray-500 dark:text-gray-400 mb-6">Comienza registrando tu primer gasto hormiga</p>
             <button hx-get="{% url 'expenses:add_expense' %}" 
                     hx-target="#modal-container" 
                     hx-indicator="#modal-loading"
