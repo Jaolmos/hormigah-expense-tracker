@@ -10,16 +10,16 @@
 {% block content %}
 <div class="space-y-6">
     <!-- Header de la página -->
-    <div class="bg-white shadow rounded-lg overflow-hidden">
-        <div class="p-6 border-b border-gray-200">
+    <div class="bg-white dark:bg-gray-800 shadow rounded-lg overflow-hidden">
+        <div class="p-6 border-b border-gray-200 dark:border-gray-700">
             <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center space-y-4 sm:space-y-0">
                 <div>
-                    <h1 class="text-xl md:text-2xl font-bold text-gray-900">Todos los Gastos</h1>
-                    <p class="text-gray-600 text-sm md:text-base">Historial completo de tus gastos hormiga</p>
+                    <h1 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-gray-100">Todos los Gastos</h1>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm md:text-base">Historial completo de tus gastos hormiga</p>
                 </div>
                 <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3">
                     <a href="{% url 'expenses:dashboard' %}" 
-                       class="text-center sm:text-left text-gray-600 hover:text-gray-800 transition-colors py-2 sm:py-0">
+                       class="text-center sm:text-left text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-100 dark:text-gray-200 transition-colors py-2 sm:py-0">
                         ← Dashboard
                     </a>
                     <button hx-get="{% url 'expenses:add_expense' %}" 
@@ -34,10 +34,10 @@
     </div>
 
     <!-- Filtros Avanzados -->
-    <div id="filters" class="bg-white rounded-lg shadow p-4 md:p-6" x-data="{ showCustomDates: false }">
+    <div id="filters" class="bg-white dark:bg-gray-800 rounded-lg shadow p-4 md:p-6" x-data="{ showCustomDates: false }">
         <div class="mb-4">
-            <h2 class="text-lg font-semibold text-gray-900 mb-2">🔍 Filtros Avanzados</h2>
-            <p class="text-sm text-gray-600">Filtra tus gastos por categoría, fecha y monto</p>
+            <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">🔍 Filtros Avanzados</h2>
+            <p class="text-sm text-gray-600 dark:text-gray-400">Filtra tus gastos por categoría, fecha y monto</p>
         </div>
         
         <form id="filter-form" method="GET" class="space-y-4"
@@ -51,23 +51,23 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <!-- Filtro rápido por Período -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                         {{ filter_form.period.label }}
                     </label>
                     {{ filter_form.period }}
                     {% if filter_form.period.errors %}
-                        <p class="mt-1 text-sm text-red-600">{{ filter_form.period.errors.0 }}</p>
+                        <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ filter_form.period.errors.0 }}</p>
                     {% endif %}
                 </div>
 
                 <!-- Filtro por Categoría -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                         {{ filter_form.category.label }}
                     </label>
                     {{ filter_form.category }}
                     {% if filter_form.category.errors %}
-                        <p class="mt-1 text-sm text-red-600">{{ filter_form.category.errors.0 }}</p>
+                        <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ filter_form.category.errors.0 }}</p>
                     {% endif %}
                 </div>
             </div>
@@ -76,23 +76,23 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4" x-show="showCustomDates" x-transition>
                 <!-- Filtro Fecha Desde -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                         {{ filter_form.date_from.label }}
                     </label>
                     {{ filter_form.date_from }}
                     {% if filter_form.date_from.errors %}
-                        <p class="mt-1 text-sm text-red-600">{{ filter_form.date_from.errors.0 }}</p>
+                        <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ filter_form.date_from.errors.0 }}</p>
                     {% endif %}
                 </div>
 
                 <!-- Filtro Fecha Hasta -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                         {{ filter_form.date_to.label }}
                     </label>
                     {{ filter_form.date_to }}
                     {% if filter_form.date_to.errors %}
-                        <p class="mt-1 text-sm text-red-600">{{ filter_form.date_to.errors.0 }}</p>
+                        <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ filter_form.date_to.errors.0 }}</p>
                     {% endif %}
                 </div>
             </div>
@@ -101,32 +101,32 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <!-- Filtro Monto Mínimo -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                         {{ filter_form.min_amount.label }}
                     </label>
                     {{ filter_form.min_amount }}
                     {% if filter_form.min_amount.errors %}
-                        <p class="mt-1 text-sm text-red-600">{{ filter_form.min_amount.errors.0 }}</p>
+                        <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ filter_form.min_amount.errors.0 }}</p>
                     {% endif %}
                 </div>
 
                 <!-- Filtro Monto Máximo -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                         {{ filter_form.max_amount.label }}
                     </label>
                     {{ filter_form.max_amount }}
                     {% if filter_form.max_amount.errors %}
-                        <p class="mt-1 text-sm text-red-600">{{ filter_form.max_amount.errors.0 }}</p>
+                        <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ filter_form.max_amount.errors.0 }}</p>
                     {% endif %}
                 </div>
             </div>
 
             <!-- Errores del formulario -->
             {% if filter_form.non_field_errors %}
-                <div class="bg-red-50 border border-red-200 rounded-md p-4">
+                <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-md p-4">
                     {% for error in filter_form.non_field_errors %}
-                        <p class="text-sm text-red-600">{{ error }}</p>
+                        <p class="text-sm text-red-600 dark:text-red-400">{{ error }}</p>
                     {% endfor %}
                 </div>
             {% endif %}
@@ -139,7 +139,7 @@
                 </button>
                 <button type="button" id="reset-filters"
                         onclick="document.getElementById('filter-form').reset(); htmx.trigger('#filter-form', 'submit')"
-                        class="bg-gray-200 text-gray-700 px-6 py-2 rounded-lg hover:bg-gray-300 transition-colors">
+                        class="bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300 px-6 py-2 rounded-lg hover:bg-gray-300 transition-colors">
                     🔄 Limpiar Filtros
                 </button>
                 <a href="{% url 'expenses:export_csv' %}?{{ request.GET.urlencode }}"
@@ -153,22 +153,22 @@
             
             <!-- Indicador de carga HTMX -->
             <div id="loading-indicator" class="htmx-indicator text-center mt-4">
-                <div class="inline-flex items-center px-4 py-2 bg-blue-50 border border-blue-200 rounded-lg">
-                    <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <div class="inline-flex items-center px-4 py-2 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+                    <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-blue-600 dark:text-blue-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
-                    <span class="text-blue-700">Actualizando resultados...</span>
+                    <span class="text-blue-700 dark:text-blue-300">Actualizando resultados...</span>
                 </div>
             </div>
         </form>
     </div>
 
     <!-- Indicador de carga para eliminación -->
-    <div id="delete-loading" class="htmx-indicator bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4">
+    <div id="delete-loading" class="htmx-indicator bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4 mb-4">
         <div class="flex items-center">
             <div class="animate-spin rounded-full h-5 w-5 border-b-2 border-yellow-600 mr-3"></div>
-            <span class="text-yellow-800 font-medium">🗑️ Eliminando gasto...</span>
+            <span class="text-yellow-800 dark:text-yellow-200 font-medium">🗑️ Eliminando gasto...</span>
         </div>
     </div>
 

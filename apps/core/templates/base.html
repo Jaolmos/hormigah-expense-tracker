@@ -4,18 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Hormigah - Control de Gastos{% endblock %}</title>
-    
+
+    <!-- Theme Script (debe cargar ANTES que el body para evitar flash) -->
+    <script>
+        // Inicializar tema antes de renderizar
+        (function() {
+            const theme = localStorage.getItem('theme') || 'light';
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark');
+            }
+        })();
+    </script>
+
     <!-- Google Fonts - Nunito -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    
+
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Configuración de Tailwind para usar Nunito -->
+
+    <!-- Configuración de Tailwind para usar Nunito y dark mode -->
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     fontFamily: {
@@ -54,22 +66,49 @@
     
     {% block extra_css %}{% endblock %}
 </head>
-<body class="bg-gray-50 min-h-screen">
+<body class="bg-gray-50 dark:bg-gray-900 min-h-screen transition-colors duration-200">
     <!-- Header -->
     {% include 'core/includes/header.html' %}
-    
+
     <!-- Main Content -->
     <main class="container mx-auto px-4 py-8">
         {% block content %}
         {% endblock %}
     </main>
-    
+
     <!-- Footer -->
     {% include 'core/includes/footer.html' %}
-    
+
     <!-- Contenedor global para modales HTMX -->
     <div id="modal-container"></div>
-    
+
+    <!-- Theme Manager Script -->
+    <script>
+        // Funciones globales para manejar el tema
+        window.themeManager = {
+            toggle: function() {
+                const html = document.documentElement;
+                const currentTheme = html.classList.contains('dark') ? 'dark' : 'light';
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+                if (newTheme === 'dark') {
+                    html.classList.add('dark');
+                } else {
+                    html.classList.remove('dark');
+                }
+
+                localStorage.setItem('theme', newTheme);
+
+                // Disparar evento para que Chart.js se actualice
+                window.dispatchEvent(new CustomEvent('themeChanged', { detail: { theme: newTheme } }));
+            },
+
+            getTheme: function() {
+                return document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+            }
+        };
+    </script>
+
     {% block extra_js %}{% endblock %}
 </body>
 </html> 

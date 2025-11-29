@@ -5,7 +5,21 @@
 
 // Configuración global de Chart.js
 Chart.defaults.font.family = 'Nunito, system-ui, sans-serif';
-Chart.defaults.color = '#6B7280';
+
+// Función para obtener colores según el tema actual
+function getChartColors() {
+    const isDark = document.documentElement.classList.contains('dark');
+    return {
+        textColor: isDark ? '#D1D5DB' : '#6B7280',          // gray-300 / gray-500
+        gridColor: isDark ? 'rgba(75, 85, 99, 0.3)' : 'rgba(209, 213, 219, 0.5)', // gray-600 / gray-300
+        borderColor: isDark ? '#374151' : '#ffffff',        // gray-700 / white
+        tooltipBg: isDark ? '#1F2937' : '#ffffff',          // gray-800 / white
+        tooltipBorder: isDark ? '#4B5563' : '#E5E7EB'       // gray-600 / gray-200
+    };
+}
+
+// Aplicar colores iniciales
+Chart.defaults.color = getChartColors().textColor;
 
 // Event listener para auto-refresh del dashboard
 document.addEventListener('DOMContentLoaded', function() {
@@ -17,6 +31,10 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+// Variable global para almacenar las instancias de los gráficos
+let categoryChartInstance = null;
+let trendChartInstance = null;
+
 /**
  * Inicializa el gráfico de dona de categorías
  * @param {Object} data - Datos para el gráfico
@@ -24,8 +42,15 @@ document.addEventListener('DOMContentLoaded', function() {
 function initCategoryChart(data) {
     const categoryCtx = document.getElementById('categoryChart');
     if (!categoryCtx) return;
-    
-    new Chart(categoryCtx.getContext('2d'), {
+
+    const colors = getChartColors();
+
+    // Destruir instancia anterior si existe
+    if (categoryChartInstance) {
+        categoryChartInstance.destroy();
+    }
+
+    categoryChartInstance = new Chart(categoryCtx.getContext('2d'), {
         type: 'doughnut',
         data: {
             labels: data.categories,
@@ -33,7 +58,7 @@ function initCategoryChart(data) {
                 data: data.amounts,
                 backgroundColor: data.colors,
                 borderWidth: 2,
-                borderColor: '#ffffff'
+                borderColor: colors.borderColor
             }]
         },
         options: {
@@ -44,10 +69,16 @@ function initCategoryChart(data) {
                     position: 'bottom',
                     labels: {
                         padding: 20,
-                        usePointStyle: true
+                        usePointStyle: true,
+                        color: colors.textColor
                     }
                 },
                 tooltip: {
+                    backgroundColor: colors.tooltipBg,
+                    borderColor: colors.tooltipBorder,
+                    borderWidth: 1,
+                    titleColor: colors.textColor,
+                    bodyColor: colors.textColor,
                     callbacks: {
                         label: function(context) {
                             const value = context.parsed;
@@ -69,8 +100,15 @@ function initCategoryChart(data) {
 function initTrendChart(data) {
     const trendCtx = document.getElementById('trendChart');
     if (!trendCtx) return;
-    
-    new Chart(trendCtx.getContext('2d'), {
+
+    const colors = getChartColors();
+
+    // Destruir instancia anterior si existe
+    if (trendChartInstance) {
+        trendChartInstance.destroy();
+    }
+
+    trendChartInstance = new Chart(trendCtx.getContext('2d'), {
         type: 'line',
         data: {
             labels: data.dates,
@@ -83,7 +121,7 @@ function initTrendChart(data) {
                 fill: true,
                 tension: 0.4,
                 pointBackgroundColor: '#3B82F6',
-                pointBorderColor: '#ffffff',
+                pointBorderColor: colors.borderColor,
                 pointBorderWidth: 2,
                 pointRadius: 6,
                 pointHoverRadius: 8
@@ -97,6 +135,11 @@ function initTrendChart(data) {
                     display: false
                 },
                 tooltip: {
+                    backgroundColor: colors.tooltipBg,
+                    borderColor: colors.tooltipBorder,
+                    borderWidth: 1,
+                    titleColor: colors.textColor,
+                    bodyColor: colors.textColor,
                     callbacks: {
                         label: function(context) {
                             return 'Gasto: €' + context.parsed.y.toLocaleString();
@@ -109,22 +152,32 @@ function initTrendChart(data) {
                     display: true,
                     title: {
                         display: true,
-                        text: 'Fecha'
+                        text: 'Fecha',
+                        color: colors.textColor
                     },
                     ticks: {
-                        maxTicksLimit: 10
+                        maxTicksLimit: 10,
+                        color: colors.textColor
+                    },
+                    grid: {
+                        color: colors.gridColor
                     }
                 },
                 y: {
                     display: true,
                     title: {
                         display: true,
-                        text: 'Monto (€)'
+                        text: 'Monto (€)',
+                        color: colors.textColor
                     },
                     ticks: {
+                        color: colors.textColor,
                         callback: function(value) {
                             return '€' + value.toLocaleString();
                         }
+                    },
+                    grid: {
+                        color: colors.gridColor
                     }
                 }
             }
@@ -132,11 +185,17 @@ function initTrendChart(data) {
     });
 }
 
+// Variable global para almacenar los datos de los gráficos
+let currentChartData = null;
+
 /**
  * Inicializa todos los gráficos del dashboard
  * @param {Object} chartData - Todos los datos de gráficos
  */
 function initDashboardCharts(chartData) {
+    // Guardar datos para poder reinicializar en cambio de tema
+    currentChartData = chartData;
+
     // Inicializar gráfico de categorías si hay datos
     if (chartData.categories && chartData.categories.length > 0) {
         initCategoryChart({
@@ -145,7 +204,7 @@ function initDashboardCharts(chartData) {
             colors: chartData.colors
         });
     }
-    
+
     // Inicializar gráfico de tendencia si hay datos
     if (chartData.dates && chartData.dates.length > 0) {
         initTrendChart({
@@ -153,4 +212,15 @@ function initDashboardCharts(chartData) {
             amounts: chartData.dailyAmounts
         });
     }
-} 
+}
+
+// Listener para cambio de tema - reinicializar gráficos
+window.addEventListener('themeChanged', function() {
+    // Actualizar color global de Chart.js
+    Chart.defaults.color = getChartColors().textColor;
+
+    // Reinicializar gráficos con los datos actuales
+    if (currentChartData) {
+        initDashboardCharts(currentChartData);
+    }
+}); 
