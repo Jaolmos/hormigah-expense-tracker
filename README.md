@@ -174,6 +174,9 @@ docker-compose up -d
 # Configurar Django
 docker-compose exec web python manage.py migrate
 docker-compose exec web python manage.py createsuperuser
+
+# Crear categorías predeterminadas (8 categorías base)
+docker-compose exec web python manage.py create_default_categories
 ```
 
 ### Acceso
