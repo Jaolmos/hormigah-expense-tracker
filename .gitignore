@@ -106,6 +106,9 @@ logs/
 # Claude Code
 .claude/
 
+# Scripts de configuración con datos sensibles
+.github/setup-secrets.sh
+
 # PyCharm
 .idea/
 *.iws
