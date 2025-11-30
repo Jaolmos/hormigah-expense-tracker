@@ -103,6 +103,27 @@ Perfil de usuario y configuraciones optimizadas para móvil.
 
 <img src="screenshots/mobile/user-profile-mobile.png" alt="User Profile Mobile" width="300">
 
+### Modo Oscuro
+
+La aplicación incluye un sistema completo de modo oscuro que se adapta a todas las pantallas y componentes.
+
+#### Características del Modo Oscuro
+- **Toggle Inteligente**: Botón en el header que cambia de icono según el tema activo
+- **Interfaz Adaptada**: Todos los componentes, modales y listas se adaptan al tema oscuro
+- **Persistencia**: Guarda la preferencia del usuario en localStorage
+- **Transiciones Suaves**: Cambios fluidos entre temas con animaciones CSS
+- **100% Responsive**: Funciona perfectamente en desktop y móvil
+
+#### Dashboard - Modo Oscuro
+El modo oscuro mantiene la legibilidad y jerarquía visual en todas las pantallas.
+
+![Dashboard Dark Desktop](screenshots/desktop/dashboard-complete-desktop-dark.png)
+
+#### Lista de Gastos - Modo Oscuro
+Vista de lista completa con el tema oscuro aplicado.
+
+![Lista de Gastos Dark Desktop](screenshots/desktop/expense-list-desktop-dark.png)
+
 ## Características Principales
 
 ### Dashboard Inteligente
@@ -122,6 +143,7 @@ Perfil de usuario y configuraciones optimizadas para móvil.
 - Modales dinámicos para operaciones CRUD
 - Auto-refresh en listas y métricas
 - Navegación fluida entre secciones
+- Modo oscuro con transiciones suaves
 
 ### Funcionalidades Avanzadas
 - Filtros inteligentes por fecha, categoría y monto
@@ -367,6 +389,7 @@ El sistema incluye dos workflows principales de n8n para automatización complet
 ### Funcionalidades Destacadas
 - **Auto-Refresh Inteligente**: Las listas se actualizan automáticamente
 - **Interfaz Moderna**: Modales HTMX sin cambiar de página
+- **Modo Oscuro Completo**: Sistema de temas con interfaz adaptable
 - **Responsive Design**: Optimizado para todos los dispositivos
 - **Sistema de Automatización Completo**: n8n + API REST + IA
 - **Reportes Mensuales Automatizados**: Análisis personalizado con GPT
