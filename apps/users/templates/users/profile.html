@@ -5,15 +5,15 @@
 {% block content %}
 <div class="max-w-2xl mx-auto">
     <!-- Header de la página -->
-    <div class="bg-white shadow-md rounded-lg overflow-hidden">
-        <div class="p-6 border-b border-gray-200">
-            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-3 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden">
+        <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-3 text-indigo-600 dark:text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                 </svg>
                 Mi Perfil
             </h2>
-            <p class="mt-2 text-gray-600">
+            <p class="mt-2 text-gray-600 dark:text-gray-400">
                 Configura tu información personal para las alertas y reportes automáticos
             </p>
         </div>
@@ -21,8 +21,8 @@
         <!-- Contenido principal -->
         <div class="p-6">
             <!-- Información del usuario -->
-            <div class="mb-6 p-5 bg-indigo-50 rounded-lg border border-indigo-100">
-                <h3 class="text-lg font-medium text-indigo-900 mb-3 flex items-center">
+            <div class="mb-6 p-5 bg-indigo-50 dark:bg-indigo-900/20 rounded-lg border border-indigo-100 dark:border-indigo-800">
+                <h3 class="text-lg font-medium text-indigo-900 dark:text-indigo-300 mb-3 flex items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
@@ -30,35 +30,35 @@
                 </h3>
                 <div class="grid grid-cols-1 gap-3 text-sm">
                     <div class="flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-indigo-500 dark:text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                         </svg>
-                        <span class="font-medium text-gray-700 mr-2">Usuario:</span>
-                        <span class="text-gray-900">{{ user.username }}</span>
+                        <span class="font-medium text-gray-700 dark:text-gray-300 mr-2">Usuario:</span>
+                        <span class="text-gray-900 dark:text-gray-100">{{ user.username }}</span>
                     </div>
                     <div class="flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-indigo-500 dark:text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
-                        <span class="font-medium text-gray-700 mr-2">Nombre completo:</span>
-                        <span class="text-gray-900">
+                        <span class="font-medium text-gray-700 dark:text-gray-300 mr-2">Nombre completo:</span>
+                        <span class="text-gray-900 dark:text-gray-100">
                             {% if user.first_name or user.last_name %}
                                 {{ user.first_name }} {{ user.last_name }}
                             {% else %}
-                                <span class="text-gray-500 italic">No configurado</span>
+                                <span class="text-gray-500 dark:text-gray-400 italic">No configurado</span>
                             {% endif %}
                         </span>
                     </div>
                     <div class="flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-indigo-500 dark:text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                         </svg>
-                        <span class="font-medium text-gray-700 mr-2">Email:</span>
-                        <span class="text-gray-900">
+                        <span class="font-medium text-gray-700 dark:text-gray-300 mr-2">Email:</span>
+                        <span class="text-gray-900 dark:text-gray-100">
                             {% if user.email %}
                                 {{ user.email }}
                             {% else %}
-                                <span class="text-gray-500 italic">No configurado</span>
+                                <span class="text-gray-500 dark:text-gray-400 italic">No configurado</span>
                             {% endif %}
                         </span>
                     </div>
@@ -72,7 +72,7 @@
                 <!-- Mensajes de éxito/error -->
                 {% if messages %}
                     {% for message in messages %}
-                        <div class="alert alert-{{ message.tags }} animate-pulse bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
+                        <div class="alert alert-{{ message.tags }} animate-pulse bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-4 mb-4">
                             <div class="flex items-center">
                                 <div class="flex-shrink-0">
                                     <svg class="h-5 w-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
@@ -80,7 +80,7 @@
                                     </svg>
                                 </div>
                                 <div class="ml-3">
-                                    <p class="text-sm font-medium text-green-800">{{ message }}</p>
+                                    <p class="text-sm font-medium text-green-800 dark:text-green-300">{{ message }}</p>
                                 </div>
                             </div>
                         </div>
@@ -89,7 +89,7 @@
 
                 <!-- Errores del formulario -->
                 {% if form.non_field_errors %}
-                    <div class="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
+                    <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4 mb-4">
                         <div class="flex">
                             <div class="flex-shrink-0">
                                 <svg class="h-5 w-5 text-red-400" fill="currentColor" viewBox="0 0 20 20">
@@ -97,8 +97,8 @@
                                 </svg>
                             </div>
                             <div class="ml-3">
-                                <h3 class="text-sm font-medium text-red-800">Errores en el formulario</h3>
-                                <div class="mt-2 text-sm text-red-700">
+                                <h3 class="text-sm font-medium text-red-800 dark:text-red-300">Errores en el formulario</h3>
+                                <div class="mt-2 text-sm text-red-700 dark:text-red-400">
                                     {{ form.non_field_errors }}
                                 </div>
                             </div>
@@ -107,9 +107,9 @@
                 {% endif %}
 
                 <!-- Campos del formulario -->
-                <div class="bg-white p-5 rounded-lg border border-gray-200 shadow-sm">
-                    <h3 class="text-lg font-medium text-gray-900 mb-4 flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div class="bg-white dark:bg-gray-800 p-5 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm">
+                    <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-indigo-500 dark:text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                         </svg>
                         Actualizar Información
@@ -118,88 +118,88 @@
                     <div class="grid grid-cols-1 gap-6">
                         <!-- Nombre -->
                         <div>
-                            <label for="{{ form.first_name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+                            <label for="{{ form.first_name.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                                 {{ form.first_name.label }}
                             </label>
                             <div class="relative rounded-md shadow-sm">
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                                     </svg>
                                 </div>
-                                <input type="text" 
-                                      name="{{ form.first_name.name }}" 
-                                      id="{{ form.first_name.id_for_label }}" 
-                                      value="{{ form.first_name.value|default:'' }}" 
-                                      class="pl-10 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500" 
+                                <input type="text"
+                                      name="{{ form.first_name.name }}"
+                                      id="{{ form.first_name.id_for_label }}"
+                                      value="{{ form.first_name.value|default:'' }}"
+                                      class="pl-10 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                                       placeholder="Tu nombre">
                             </div>
                             {% if form.first_name.help_text %}
-                                <p class="mt-2 text-sm text-gray-500">{{ form.first_name.help_text }}</p>
+                                <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">{{ form.first_name.help_text }}</p>
                             {% endif %}
                             {% if form.first_name.errors %}
-                                <p class="mt-2 text-sm text-red-600">{{ form.first_name.errors.0 }}</p>
+                                <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ form.first_name.errors.0 }}</p>
                             {% endif %}
                         </div>
 
                         <!-- Apellido -->
                         <div>
-                            <label for="{{ form.last_name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+                            <label for="{{ form.last_name.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                                 {{ form.last_name.label }}
                             </label>
                             <div class="relative rounded-md shadow-sm">
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
                                 </div>
-                                <input type="text" 
-                                      name="{{ form.last_name.name }}" 
-                                      id="{{ form.last_name.id_for_label }}" 
-                                      value="{{ form.last_name.value|default:'' }}" 
-                                      class="pl-10 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500" 
+                                <input type="text"
+                                      name="{{ form.last_name.name }}"
+                                      id="{{ form.last_name.id_for_label }}"
+                                      value="{{ form.last_name.value|default:'' }}"
+                                      class="pl-10 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                                       placeholder="Tu apellido">
                             </div>
                             {% if form.last_name.help_text %}
-                                <p class="mt-2 text-sm text-gray-500">{{ form.last_name.help_text }}</p>
+                                <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">{{ form.last_name.help_text }}</p>
                             {% endif %}
                             {% if form.last_name.errors %}
-                                <p class="mt-2 text-sm text-red-600">{{ form.last_name.errors.0 }}</p>
+                                <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ form.last_name.errors.0 }}</p>
                             {% endif %}
                         </div>
 
                         <!-- Email -->
                         <div>
-                            <label for="{{ form.email.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
-                                {{ form.email.label }} <span class="text-red-500">*</span>
+                            <label for="{{ form.email.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                {{ form.email.label }} <span class="text-red-500 dark:text-red-400">*</span>
                             </label>
                             <div class="relative rounded-md shadow-sm">
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                                     </svg>
                                 </div>
-                                <input type="email" 
-                                      name="{{ form.email.name }}" 
-                                      id="{{ form.email.id_for_label }}" 
-                                      value="{{ form.email.value|default:'' }}" 
-                                      class="pl-10 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500" 
+                                <input type="email"
+                                      name="{{ form.email.name }}"
+                                      id="{{ form.email.id_for_label }}"
+                                      value="{{ form.email.value|default:'' }}"
+                                      class="pl-10 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                                       placeholder="tu@email.com">
                             </div>
                             {% if form.email.help_text %}
-                                <p class="mt-2 text-sm text-gray-500">{{ form.email.help_text }}</p>
+                                <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">{{ form.email.help_text }}</p>
                             {% endif %}
                             {% if form.email.errors %}
-                                <p class="mt-2 text-sm text-red-600">{{ form.email.errors.0 }}</p>
+                                <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ form.email.errors.0 }}</p>
                             {% endif %}
                         </div>
 
                         <!-- Alertas por Email - Solo si el usuario tiene presupuesto -->
                         {% if form.email_alerts_enabled %}
-                        <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mt-2">
+                        <div class="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4 mt-2">
                             <div class="flex items-start space-x-3">
                                 <div class="flex-shrink-0 pt-0.5">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-500 dark:text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                                     </svg>
                                 </div>
@@ -209,16 +209,16 @@
                                               name="{{ form.email_alerts_enabled.name }}"
                                               type="checkbox"
                                               {% if form.email_alerts_enabled.value %}checked{% endif %}
-                                              class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
-                                        <label for="{{ form.email_alerts_enabled.id_for_label }}" class="ml-2 block text-sm font-medium text-gray-700">
+                                              class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-gray-600 rounded">
+                                        <label for="{{ form.email_alerts_enabled.id_for_label }}" class="ml-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
                                             {{ form.email_alerts_enabled.label }}
                                         </label>
                                     </div>
                                     {% if form.email_alerts_enabled.help_text %}
-                                        <p class="mt-1 text-sm text-gray-500">{{ form.email_alerts_enabled.help_text }}</p>
+                                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ form.email_alerts_enabled.help_text }}</p>
                                     {% endif %}
                                     {% if form.email_alerts_enabled.errors %}
-                                        <p class="mt-1 text-sm text-red-600">{{ form.email_alerts_enabled.errors.0 }}</p>
+                                        <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ form.email_alerts_enabled.errors.0 }}</p>
                                     {% endif %}
                                 </div>
                             </div>
@@ -229,14 +229,14 @@
 
                 <!-- Botones de acción -->
                 <div class="flex flex-col-reverse sm:flex-row sm:justify-between sm:space-x-4 pt-6">
-                    <a href="{% url 'expenses:dashboard' %}" 
-                       class="mt-3 sm:mt-0 w-full sm:w-auto inline-flex justify-center items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <a href="{% url 'expenses:dashboard' %}"
+                       class="mt-3 sm:mt-0 w-full sm:w-auto inline-flex justify-center items-center px-4 py-2 border border-gray-300 dark:border-gray-600 shadow-sm text-sm font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-400 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
                         </svg>
                         Volver al Dashboard
                     </a>
-                    <button type="submit" 
+                    <button type="submit"
                             class="w-full sm:w-auto inline-flex items-center justify-center px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
@@ -247,25 +247,25 @@
             </form>
 
             <!-- Nota informativa -->
-            <div class="mt-8 p-5 bg-blue-50 border border-blue-200 rounded-lg shadow-sm">
+            <div class="mt-8 p-5 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg shadow-sm">
                 <div class="flex space-x-4">
                     <div class="flex-shrink-0">
-                        <div class="p-2 bg-blue-100 rounded-full">
-                            <svg class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <div class="p-2 bg-blue-100 dark:bg-blue-800 rounded-full">
+                            <svg class="h-6 w-6 text-blue-600 dark:text-blue-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                             </svg>
                         </div>
                     </div>
                     <div>
-                        <h3 class="text-md font-medium text-blue-800">¿Para qué se usa esta información?</h3>
-                        <div class="mt-2 text-sm text-blue-600 space-y-2">
+                        <h3 class="text-md font-medium text-blue-800 dark:text-blue-300">¿Para qué se usa esta información?</h3>
+                        <div class="mt-2 text-sm text-blue-600 dark:text-blue-400 space-y-2">
                             <p>Nos importa tu privacidad. Esta información solo se utiliza para:</p>
                             <ul class="list-disc list-inside space-y-1 ml-2">
                                 <li><span class="font-medium">Email:</span> Recibir alertas de presupuesto y reportes mensuales automáticos</li>
                                 <li><span class="font-medium">Nombre:</span> Personalizar los emails y reportes (opcional)</li>
                                 <li><span class="font-medium">Apellido:</span> Reportes más formales (opcional)</li>
                             </ul>
-                            <p class="text-xs text-blue-500 mt-2">No compartimos tus datos con terceros ni te enviaremos spam.</p>
+                            <p class="text-xs text-blue-500 dark:text-blue-400 mt-2">No compartimos tus datos con terceros ni te enviaremos spam.</p>
                         </div>
                     </div>
                 </div>
